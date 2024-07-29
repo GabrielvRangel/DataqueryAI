@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text to SQL</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Faça uma pergunta sobre os dados</h1>
+    <form action="/ask" method="post">
+        <label for="query">Pergunta:</label>
+        <input type="text" id="query" name="query" required>
+        <input type="submit" value="Enviar">
+    </form>
+    <div id="result">
+        {% if result %}
+            <h2>Consulta SQL:</h2>
+            <p>{{ result.query }}</p>
+            <h2>Resultado:</h2>
+            <ul>
+                {% for row in result.result %}
+                    <li>{{ row }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {% if error %}
+            <h2>Erro:</h2>
+            <p>{{ error }}</p>
+            <h2>Consulta SQL:</h2>
+            <p>{{ query }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>
